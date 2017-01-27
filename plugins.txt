@@ -13,3 +13,4 @@ rebuild:latest
 scm-api:latest
 ssh-credentials:latest
 token-macro:latest
+workflow-aggregator:latest
