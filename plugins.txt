@@ -41,3 +41,4 @@ cloudbees-folder:latest
 mailer:latest
 matrix-project:latest
 maven-plugin:latest
+javadoc:latest
