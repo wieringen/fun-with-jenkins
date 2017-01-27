@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+trap 'docker-compose stop' SIGINT
+
+if [ -z "$DOCKER_HOST" ]; then
+    echo "DOCKER_HOST environment variable must be set"
+    exit 1
+fi
+
+docker_ip=$(echo "$DOCKER_HOST" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b")
+
+docker-compose rm -f && docker-compose up -d
