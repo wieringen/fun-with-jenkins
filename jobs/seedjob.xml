@@ -39,16 +39,7 @@ projects.each {
   println &quot;Creating Job ${jobName} for ${gitUrl}&quot;
   if (jobName.equals('tinyscrollbar')) {
     pipelineJob(&quot;${jobName}&quot;) {
-      definition {
-        cps {
-          try {
-          script(readFileFromWorkspace('Jenkinsfile'))
-          sandbox()
-          } catch (error) {
-            // clueless
-          }
-        }
-      }
+      scriptPath('Jenkinsfile')
     }
   }
 }
