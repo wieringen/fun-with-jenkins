@@ -1,21 +1,16 @@
-FROM jenkins:1.609.3
-USER root
+FROM jenkins:1.642.2
 
-# Remove existing upstream config
-RUN rm -fr /usr/share/jenkins/ref/*
+COPY plugins.txt /var/jenkins_home/plugins.txt
+RUN /usr/local/bin/plugins.sh /var/jenkins_home/plugins.txt
 
-# Disable default plugins
-RUN mkdir /usr/share/jenkins/ref/plugins
-RUN touch /usr/share/jenkins/ref/plugins/ant.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/antisamy-markup-formatter.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/cvs.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/external-monitor-job.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/ldap.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/pam-auth.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/ssh-slaves.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/subversion.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/translation.jpi.disabled && \
-    touch /usr/share/jenkins/ref/plugins/windows-slaves.jpi.disabled
+# Adding default Jenkins Jobs
+COPY jobs/seedjob.xml /usr/share/jenkins/ref/jobs/seedjob/config.xml
 
-COPY plugins.txt /usr/share/jenkins/ref/
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
+############################################
+# Configure Jenkins
+############################################
+# Jenkins settings
+COPY config/config.xml /usr/share/jenkins/ref/config.xml
+
+# Jenkins Settings, i.e. Groovy, ...
+COPY config/hudson.plugins.groovy.Groovy.xml /usr/share/jenkins/ref/hudson.plugins.groovy.Groovy.xml
