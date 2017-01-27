@@ -37,12 +37,17 @@ projects.each {
   def githubName=it.full_name
   def gitUrl=it.ssh_url
   println &quot;Creating Job ${jobName} for ${gitUrl}&quot;
-
-  pipelineJob(&quot;${jobName}&quot;) {
-    definition {
-      cps {
-        script(readFileFromWorkspace('Jenkinsfile'))
-        sandbox()
+  if (jobName.equals('tinyscrollbar')) {
+    pipelineJob(&quot;${jobName}&quot;) {
+      definition {
+        cps {
+          try {
+          script(readFileFromWorkspace('Jenkinsfile'))
+          sandbox()
+          } catch (error) {
+            // clueless
+          }
+        }
       }
     }
   }
