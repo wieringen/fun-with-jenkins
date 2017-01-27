@@ -42,3 +42,10 @@ mailer:latest
 matrix-project:latest
 maven-plugin:latest
 javadoc:latest
+credentials:latest
+ace-editor:latest
+display-url-api:latest
+junit:latest
+pipeline-graph-analysis:latest
+durable-task:latest
+plain-credentials:latest
