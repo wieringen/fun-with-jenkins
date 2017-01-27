@@ -7,8 +7,8 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill jenkins-%i
 ExecStartPre=-/usr/bin/docker rm jenkins-%i
-ExecStartPre=/usr/bin/docker pull baijs/fun-with-jenkins
-ExecStart=/usr/bin/docker run --rm --name jenkins-%i -p 80:8080 baijs/fun-with-jenkins
+ExecStartPre=/usr/bin/docker pull baijs/fun-with-jenkins:latest
+ExecStart=/usr/bin/docker run --rm --name jenkins-%i -p 80:8080 baijs/fun-with-jenkins:latest
 ExecStop=/usr/bin/docker stop jenkins-%i
 
 [X-Fleet]
