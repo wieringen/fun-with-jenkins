@@ -38,13 +38,12 @@ projects.each {
   def gitUrl=it.ssh_url
   println &quot;Creating Job ${jobName} for ${gitUrl}&quot;
 
-  job(&quot;${jobName}&quot;) {
-    logRotator(-1, 10)
-    scm {
-        github(githubName, &apos;master&apos;)
-    }
-    triggers {
-        githubPush()
+  pipelineJob(&quot;${jobName}&quot;) {
+    definition {
+      cps {
+        script(readFileFromWorkspace('Jenkinsfile'))
+        sandbox()
+      }
     }
   }
 }
